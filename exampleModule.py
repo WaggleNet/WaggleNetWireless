@@ -8,12 +8,6 @@ import time
 
 id_length = 16
 
-#dummy class representing a generic sensor, not required
-class exampleSensor():
-    def read_data(self):
-        data = [random.randint(0, 9999) for i in range(0, 10)]
-        return data
-
 class exampleModule():
     module_name = "example" #put the name of your sensor/project here
     sensor = None
@@ -28,19 +22,42 @@ class exampleModule():
         self.module_id = bytearray(self.module_id, encoding="ascii")
         print(f"instance of {self.module_name} created with id {self.module_id}")
 
+    # @abstractmethod
     def setup(self):
-        self.sensor = exampleSensor()
+        print("this shouldn't run")
+        pass
 
 #don't need to modify this
     def wrap_poll(self):
-        if ((time.monotonic() - self.last_poll) > self.polling_interval):
+        # if ((time.monotonic() - self.last_poll) > self.polling_interval):
+        #     self.last_poll = time.monotonic()
+        #     data = bytearray(self.poll())
+        #     header = self.module_id + len(data).to_bytes(4)
+        #     return header + data
+        # return None
+        return (time.monotonic() - self.last_poll) > self.polling_interval
+
+
+    def poll(self):
+        # sensor_data = self.sensor.read_data()
+        # return sensor_data
+        pass
+    
+#dummy class representing a generic sensor, not required
+class exampleSensor(exampleModule):
+    def read_data(self):
+        data = [random.randint(0, 9999) for i in range(0, 10)]
+        return data
+    
+    def setup(self):
+        print("do actual stuff")
+
+    def wrap_poll(self):
+        should_poll = super().wrap_poll(self)
+
+        if (should_poll):
             self.last_poll = time.monotonic()
             data = bytearray(self.poll())
             header = self.module_id + len(data).to_bytes(4)
             return header + data
         return None
-
-
-    def poll(self):
-        sensor_data = self.sensor.read_data()
-        return sensor_data
