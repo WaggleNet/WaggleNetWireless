@@ -1,7 +1,7 @@
 import sys
 import time
 #import your module
-import exampleModule
+import rateTest as exampleModule
 import digitalio
 import board
 import busio

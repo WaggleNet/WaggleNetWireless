@@ -21,7 +21,6 @@ rfm9x.enable_crc = False
 rfm9x.node = 201
 rfm9x.destination = 200
 
-print("hello. Recieving")
 msg = ""
 while True:
     msg = rfm9x.receive(keep_listening = True, with_header=True, with_ack=True)
