@@ -7,6 +7,7 @@ import board
 import busio
 import adafruit_rfm9x
 import time
+from importlib import reload
 
 import os
 
@@ -45,6 +46,7 @@ message_length = 64
 while(running):
     transmit = ""
     for module in modules:
+        reload(module)
         try:
             poll_result = module.wrap_poll()
             if (poll_result is not None):

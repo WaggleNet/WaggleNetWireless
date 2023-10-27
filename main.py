@@ -60,6 +60,3 @@ while(running):
         if message != "":
             rfm9x.send_with_ack(bytearray(message))
             print(f"sending: {message}")
-
-# while True:
-#     print("hello world")
