@@ -7,9 +7,9 @@ import time
 import os
 
 RADIO_FREQ_MHZ = 915.0
-CS = dio.DigitalInOut(board.GP5)
-RESET = dio.DigitalInOut(board.GP6)
-spi = busio.SPI(board.GP2, MOSI=board.GP3, MISO=board.GP4)
+CS = dio.DigitalInOut(board.D5)
+RESET = dio.DigitalInOut(board.D6)
+spi = busio.SPI(board.D2, MOSI=board.D3, MISO=board.D4)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ)
 
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ, baudrate=1000000)

@@ -2,11 +2,12 @@ import digitalio
 import board
 import time
 
-pin = digitalio.DigitalInOut(board.LED)
-print(pin.value)
-pin.direction = digitalio.Direction.OUTPUT
 
-while(True):
-    pin.value = not pin.value
-    time.sleep(0.1)
-    print(pin.value)
+print(dir(board))
+print()
+print(dir(board.pin))
+print()
+print(dir(board.pin.GPIO))
+print()
+print(dir(board.pin.GPIO.BOARD))
+
