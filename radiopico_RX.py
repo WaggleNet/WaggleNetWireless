@@ -30,3 +30,4 @@ while True:
         print(f"nothing yet... Rssi: {rfm9x.last_rssi}")
         
     print(f"Rssi: {rfm9x.last_rssi}")	
+    
