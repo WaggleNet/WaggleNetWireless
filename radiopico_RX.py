@@ -25,7 +25,7 @@ msg = ""
 while True:
     msg = rfm9x.receive(keep_listening = True, with_header=True, with_ack=True)
     if(msg is not None):
-        print(str(msg))
+        print(msg.decode())
     else:
         print(f"nothing yet... Rssi: {rfm9x.last_rssi}")
         
