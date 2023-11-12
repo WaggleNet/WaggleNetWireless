@@ -25,6 +25,6 @@ print("hello. Transmitting")
 msg = "Hello from the other pico"
 while True:
     print("Transmitting")
-    if not rfm9x.send_with_ack(bytearray(msg)):
+    if not rfm9x.send_with_ack(msg):
         print("send timeout")
     time.sleep(0.1)
