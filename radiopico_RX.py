@@ -12,11 +12,7 @@ RESET = dio.DigitalInOut(board.D5)
 spi = busio.SPI(board.SCLK, MOSI=board.MOSI, MISO=board.MISO)
 # rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ)
 
-try:
-    rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ, baudrate=1000000)
-except:
-    # rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ, baudrate=1000000)
-    print("Can't connect")
+rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ, baudrate=1000000)
 
 rfm9x.coding_rate = 5
 rfm9x.spreading_factor = 8
