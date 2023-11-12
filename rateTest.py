@@ -28,7 +28,7 @@ class exampleModule():
     def wrap_poll(self):
         if ((time.monotonic() - self.last_poll) > self.polling_interval):
             self.last_poll = time.monotonic()
-            self.polling_interval = self.polling_interval/2;
+            self.polling_interval = self.polling_interval/2
             return self.poll()
         return None
 
