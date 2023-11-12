@@ -11,8 +11,8 @@ import time
 import os
 
 RADIO_FREQ_MHZ = 915.0
-CS = digitalio.DigitalInOut(board.GP5)
-RESET = digitalio.DigitalInOut(board.GP6)
+CS = digitalio.DigitalInOut(board.GP6)
+RESET = digitalio.DigitalInOut(board.GP5)
 spi = busio.SPI(board.GP2, MOSI=board.GP3, MISO=board.GP4)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ)
 
@@ -46,6 +46,7 @@ while(running):
     transmit = ""
     for module in modules:
         try:
+            print(module)
             poll_result = module.wrap_poll()
             if (poll_result is not None):
                 transmit += f"[\"{module.module_name}\",  \"{poll_result}\"]"
@@ -58,7 +59,7 @@ while(running):
         message = transmit[i : min( (i + 1) * message_length, len(transmit) )]
 
         if message != "":
-            rfm9x.send_with_ack(bytearray(message))
+            rfm9x.send_with_ack(message)
             print(f"sending: {message}")
 
 # print("hello world")

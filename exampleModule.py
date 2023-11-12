@@ -9,7 +9,7 @@ import time
 #dummy class representing a generic sensor, not required
 class exampleSensor():
     def read_data(self):
-        data = [random.randint(0, 9999) for i in range(0, 10)]
+        data = random.randint(0, 9999)
         return data
 
 class exampleModule():
