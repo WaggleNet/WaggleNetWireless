@@ -10,7 +10,7 @@ RADIO_FREQ_MHZ = 915.0
 CS = dio.DigitalInOut(board.D16)
 RESET = dio.DigitalInOut(board.D5)
 spi = busio.SPI(board.SCLK, MOSI=board.MOSI, MISO=board.MISO)
-rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ)
+# rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ)
 
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ, baudrate=1000000)
 
