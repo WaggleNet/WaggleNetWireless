@@ -34,7 +34,7 @@ while True:
 
         now = datetime.now()
 
-        newline = now.isoformat() + ": " + msg.decode(errors='ignore') + "<br>"
+        newline = now + ": " + msg.decode(errors='ignore') + "<br>"
         msg_list = newline + msg_list
         file.write(HTML_start + msg_list[0:1000] + HTML_end)
         file.flush()
