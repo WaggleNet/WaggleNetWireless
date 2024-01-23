@@ -3,8 +3,13 @@ import board
 import busio
 import adafruit_rfm9x
 import time
-
+import SimpleHTTPServer
+import SocketServer
 import os
+
+PORT = 8000
+httpd = SocketServer.TCPServer(("", PORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
+httpd.serve_forever()
 
 RADIO_FREQ_MHZ = 915.0
 CS = dio.DigitalInOut(board.D6)
