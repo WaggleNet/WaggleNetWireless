@@ -36,7 +36,7 @@ while True:
 
         newline = now.isoformat() + ": " + msg.decode(errors='ignore') + "<br>"
         msg_list = newline + msg_list
-        file.write(HTML_start + msg_list + HTML_end)
+        file.write(HTML_start + msg_list[0:1000] + HTML_end)
         file.flush()
     else:
         print(f"nothing yet... Rssi: {rfm9x.last_rssi}")
