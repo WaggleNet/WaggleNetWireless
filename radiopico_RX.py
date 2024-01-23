@@ -5,10 +5,6 @@ import adafruit_rfm9x
 import time
 import os
 
-PORT = 8000
-httpd = SocketServer.TCPServer(("", PORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
-httpd.serve_forever()
-
 RADIO_FREQ_MHZ = 915.0
 CS = dio.DigitalInOut(board.D6)
 RESET = dio.DigitalInOut(board.D5)
