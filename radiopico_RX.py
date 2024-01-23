@@ -4,7 +4,7 @@ import busio
 import adafruit_rfm9x
 import time
 import os
-frome datetime import datetime
+from datetime import datetime
 
 RADIO_FREQ_MHZ = 915.0
 CS = dio.DigitalInOut(board.D6)
