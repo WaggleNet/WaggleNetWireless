@@ -4,6 +4,7 @@ import busio
 import adafruit_rfm9x
 import time
 import os
+frome datetime import datetime
 
 RADIO_FREQ_MHZ = 915.0
 CS = dio.DigitalInOut(board.D6)
@@ -30,7 +31,11 @@ while True:
     if(msg is not None):
         print(msg, time.time())
         file.truncate(0)
-        msg_list = msg.decode(errors='ignore') + "<br>" + msg_list
+
+        now = datetime.now()
+
+        newline = now.isoformat() + ": " + msg.decode(errors='ignore') + "<br>"
+        msg_list = newline + msg_list
         file.write(HTML_start + msg_list + HTML_end)
         file.flush()
     else:
