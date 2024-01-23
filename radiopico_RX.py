@@ -30,7 +30,7 @@ while True:
     if(msg is not None):
         print(msg, time.time())
         file.truncate(0)
-        msg_list = msg.decode(errors='ignore') + "<\br>" + msg_list
+        msg_list = msg.decode(errors='ignore') + "<br>" + msg_list
         file.write(HTML_start + msg_list + HTML_end)
         file.flush()
     else:
