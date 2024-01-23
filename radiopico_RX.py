@@ -27,10 +27,18 @@ rfm9x.node = 201
 rfm9x.destination = 200
 
 msg = ""
+msg_list = ""
+HTML_start = "<!DOCTYPE HTML>\n<html><body>"
+HTML_end = "</body></html>"
+file = open("received.html", "w")
 while True:
     msg = rfm9x.receive(keep_listening = True, with_header=True, with_ack=True)
     if(msg is not None):
         print(msg, time.time())
+        file.truncate(0)
+        msg_list = msg + "<\br>" + msg_list
+        file.write(HTML_start + msg_list + HTML_end)
+        file.flush()
     else:
         print(f"nothing yet... Rssi: {rfm9x.last_rssi}")
         
