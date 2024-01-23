@@ -3,8 +3,6 @@ import board
 import busio
 import adafruit_rfm9x
 import time
-import SimpleHTTPServer
-import SocketServer
 import os
 
 PORT = 8000
