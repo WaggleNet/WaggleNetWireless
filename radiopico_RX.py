@@ -5,6 +5,7 @@ import adafruit_rfm9x
 import time
 import os
 from datetime import datetime
+import boto3
 
 RADIO_FREQ_MHZ = 915.0
 CS = dio.DigitalInOut(board.D6)
@@ -26,6 +27,21 @@ msg_list = ""
 HTML_start = "<!DOCTYPE HTML>\n<html><body>"
 HTML_end = "</body></html>"
 file = open("received.html", "w")
+keyfile = open('key.txt')
+
+access_key = keyfile.readline()
+secret_key = keyfile.readline()
+
+bucket_name = 'beehive-data-1.0'
+
+last_upload = time.time()
+
+def upload(filepath, stamp):
+    s3 = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key=secret_key)
+    s3.upload_file(filepath, bucket_name, f'{datetime.now()}-{stamp}')
+
+num_upload = 0
+
 while True:
     msg = rfm9x.receive(keep_listening = True, with_header=True, with_ack=True)
     if(msg is not None):
@@ -42,4 +58,10 @@ while True:
         print(f"nothing yet... Rssi: {rfm9x.last_rssi}")
         
     print(f"Rssi: {rfm9x.last_rssi}")	
+
+    if time.time() - last_upload > 20:
+        upload("received.html", num_upload)
+
+        num_upload += 1
+        last_upload = time.time()
     

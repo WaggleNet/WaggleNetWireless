@@ -8,6 +8,14 @@ import busio
 import adafruit_rfm9x
 import time
 from importlib import reload
+import boto3
+import numpy as np
+import pandas as pd
+
+access_key = 'AKIAWZ7TTR42XDCSCD3V'
+secret_key = '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'
+bucket_name = 'beehive-data-1.0'
+test_file = 'testfile'
 
 import os
 
@@ -43,6 +51,22 @@ for module in modules:
 running = True
 message_length = 64
 
+def upload(filepath, stamp):
+    s3 = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key=secret_key)
+    s3.upload_file(filepath, bucket_name, f'testfile-{stamp}')
+
+# for i in range(99):
+#     random = np.random.randint(1000, size=1000)
+#     print(random)
+#     df = pd.DataFrame(random)
+#     df.to_csv('./testfile', header=False, index=False)
+#     upload('testfile', i)
+
+last_upload = time.time()
+
+to_upload = []
+num_upload = 0
+
 while(running):
     transmit = ""
     for module in modules:
@@ -50,15 +74,27 @@ while(running):
         try:
             poll_result = module.wrap_poll()
             if (poll_result is not None):
-                transmit += f"[\"{module.module_name}\",  \"{poll_result}\"]"
+                # transmit += f"[\"{module.module_name}\",  \"{poll_result}\"]"
+                to_upload.append(f"[\"{module.module_name}\",  \"{poll_result}\"]")
         except:
             e = sys.exception()
-            transmit += f"an exception occurred when polling module \"{module.module_name}\" \n{e}"
+            # transmit += f"an exception occurred when polling module \"{module.module_name}\" \n{e}"
+            to_upload.append(f"an exception occurred when polling module \"{module.module_name}\" \n{e}")
 
     
-    for i in range(len(transmit) // message_length + 1):
-        message = transmit[i : min( (i + 1) * message_length, len(transmit) )]
+    # for i in range(len(transmit) // message_length + 1):
+    #     message = transmit[i : min( (i + 1) * message_length, len(transmit) )]
 
-        if message != "":
-            rfm9x.send_with_ack(bytearray(message))
-            print(f"sending: {message}")
+    #     if message != "":
+    #         rfm9x.send_with_ack(bytearray(message))
+    #         print(f"sending: {message}")
+    
+    if time.time() - last_upload > 20:
+        with open(f"./testfile_{time.time()}", "w") as f:
+            f.write(", ".join(to_upload))
+        
+        upload(f"./testfile_{time.time()}", num_upload)
+
+        num_upload += 1
+        to_upload = []
+        last_upload = time.time()
