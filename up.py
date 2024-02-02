@@ -1,8 +1,12 @@
 import boto3
 import numpy as np
 import pandas as pd
-access_key = 'AKIAWZ7TTR42XDCSCD3V'
-secret_key = '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'
+
+keyfile = open('key.txt')
+
+access_key = keyfile.readline()
+secret_key = keyfile.readline()
+print(f'access key: {access_key},\n secret_key: {secret_key}\n')
 bucket_name = 'beehive-data-1.0'
 test_file = 'testfile'
 
