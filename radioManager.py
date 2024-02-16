@@ -8,14 +8,9 @@ import busio
 import adafruit_rfm9x
 import time
 from importlib import reload
-import boto3
 import numpy as np
 import pandas as pd
 
-access_key = 'AKIAWZ7TTR42XDCSCD3V'
-secret_key = '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'
-bucket_name = 'beehive-data-1.0'
-test_file = 'testfile'
 
 import os
 
